@@ -1,0 +1,18 @@
+.test-container {
+    background-color: aliceblue;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.list {
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.render-item {
+    height: 40px;
+    width: 100%;
+}
