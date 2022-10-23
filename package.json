@@ -12,7 +12,8 @@
     "@vueuse/core": "^9.3.1",
     "element-plus": "^2.2.19",
     "pinia": "^2.0.21",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@types/node": "^16.11.47",
