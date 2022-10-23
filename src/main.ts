@@ -3,6 +3,7 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 
 import './assets/main.css'
+import 'element-plus/dist/index.css'
 
 const pinia = createPinia()
 const app = createApp(App);

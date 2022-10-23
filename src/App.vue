@@ -14,6 +14,7 @@ import { TestListLoadMoreComposable } from './components/009_listLoadMoreComposa
 import WatchVsWatchEffect from './components/010_watchVsWatchEffect';
 import TestPinia from './components/011_testPinia';
 import TestPinia2 from './components/011_testPinia2';
+import UseOffsetPaginationPage from './components/012_useOffsetPaginationPage.vue';
 
 // 8. 渲染泪飙
 const listData = ref([
@@ -31,15 +32,16 @@ const enlargeText = function() {
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
     </div>
-  </header>
+  </header> -->
 
   <main>
+    <UseOffsetPaginationPage />
     <Count :class='{"test-class-name": true}' title="my-title" />
     <div :style="{fontSize: postFontSize + 'em'}">
       <TestList
