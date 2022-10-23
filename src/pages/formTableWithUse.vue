@@ -30,9 +30,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watchEffect, watch, onMounted } from 'vue';
-import { useOffsetPagination } from '@vueuse/core';
+import { reactive, ref, watch, onMounted } from 'vue';
 import { ElPagination } from 'element-plus';
+import { useFormData } from './useFormData';
 
 const filterData = reactive<{province?: string, city?: string,}>({
   province: undefined,
@@ -42,10 +42,10 @@ watch(() => filterData.province, () => {
   // 重制城市
   filterData.city = undefined;
 }, {deep: false})
-const tableData = ref([]);
-const total = ref(0);
 
 const {
+  tableData,
+  total,
   currentPage,
   currentPageSize,
   pageCount,
@@ -53,30 +53,19 @@ const {
   isLastPage,
   prev,
   next,
-} = useOffsetPagination({
-  total: total,
+  fetch,
+} = useFormData({
   page: 1,
   pageSize: 10,
-  onPageChange: async () => {
-    await fetch();
+  loadDataApi: () => {
+    return loadDataMock(currentPage.value, filterData.city);
   }
 });
-
-// 获取数据
-const fetch = async () => {
-  const res = await loadDataMock(currentPage.value-1, filterData.city);
-  tableData.value = res.list;
-  total.value = res.total;
-}
 
 const search = async () => {
   currentPage.value = 1;
   await fetch();
 }
-
-onMounted(async () => {
-  await fetch();
-});
 
 
 // mock数据
