@@ -6,6 +6,8 @@ import FormTableWithUse from './pages/formTableWithUse.vue';
 import GenForm from './pages/genForm.vue';
 import GenFormRef from './pages/genFormRef.vue';
 import Test_stack from './pages/013_test_stack.vue';
+import FormilyLogin from './pages/formilyLogin.vue';
+import TestCarManage from './pages/testCarManage.vue';
 
 const routes = [
   { path: '/app', component: App },
@@ -14,6 +16,8 @@ const routes = [
   { path: '/genForm', component: GenForm },
   { path: '/genFormRef', component: GenFormRef },
   { path: '/013_test_stack', component: Test_stack },
+  { path: '/formilyLogin', component: FormilyLogin },
+  { path: '/testCarManage', component: TestCarManage },
 ]
 
 const router = createRouter({
