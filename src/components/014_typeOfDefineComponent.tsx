@@ -1,3 +1,6 @@
+// https://blog.csdn.net/qq_36157085/article/details/109498473
+import { keysOf } from 'element-plus/es/utils';
+import { ftruncate } from 'fs';
 import { defineComponent, reactive, onMounted, ref, type SetupContext, type ComponentOptionsMixin } from 'vue';
 
 // 1. 范型方法，自动推断出范型变量的类型
@@ -59,40 +62,76 @@ let helperFunctions: { [name: string]: Function } & ThisType<HelperThisValue> = 
 }
 
 // 6. LooseRequired
-type LooseRequired<T> = { [P in string & keyof T]: T[P] }
-const loose: LooseRequired<undefined> = {
-  u: '',
-  ddd: ''
+type LooseRequired<T> = { [P in (string & keyof T)]: T[P] }
+const loose: LooseRequired<{9: string}> = {
+  9: 'fff'
 }
+
 type LooseRequired2<T> = { [P in keyof T]: T[P] }
-const loose2: LooseRequired2<unknown> = {
-  u: '',
-  ddd: ''
+const loose2: LooseRequired2<{[key: number]: string}> = {
+  0: ''
 }
 function testLooseRequired<T>(props: LooseRequired<T>): LooseRequired<T> {
   return props
 }
 const returnValue = testLooseRequired({u: undefined})
-returnValue.u = 1
+// returnValue.u = 1
+
+type Test5 = 'p1'|'p2'
+type Test6 = number
+type TestInterSectionString = string & Test5
+let testInterSectionString: TestInterSectionString = 'p1'
+testInterSectionString = 'p2'
 
 
-export const TestListLoadMore1 = /*#__PURE__*/  defineComponent<{name: string, name1: string}>(
+
+// overload 1: direct setup function， 不定义 props 类型
+export const TestListLoadMore1 = /*#__PURE__*/  defineComponent(
   (props, ctx) => {
     return () => {
-      return (<div>{props.name}</div>)
+      return (<div>{props}</div>)
     }
   }
 )
 
+// overload 1: direct setup function， 直接定义 props 类型
 export const TestListLoadMore2 = /*#__PURE__*/  defineComponent<{name: string}>(
   (props, ctx) => {
-    const refA = ref(0)
-    return {refA}
+    const name = props.name
+    return {name}
   }
 )
-if (TestListLoadMore1.setup) {
-  TestListLoadMore1.setup({name: '', name1: ''}, {} as SetupContext)
-}
+
+// overload 2: object format with no props
+// (uses user defined props interface)
+// return type is for Vetur and TSX support
+export const TestListLoadMore3 = /*#__PURE__*/  defineComponent(
+  {
+    setup(props) {
+      return {
+        // name: props.name // 错误，并没有定义props的类型
+      }
+    }
+  }
+)
+
+// overload 3: object format with array props declaration
+// props inferred as { [key in PropNames]?: any }
+// return type is for Vetur and TSX support
+export const TestListLoadMore4 = /*#__PURE__*/  defineComponent(
+  {
+    props: ['name', 'dfsdf'],
+    setup(props) {
+      return {
+        name: props.name
+      }
+    }
+  }
+)
+// type MyKeyof<T> = {[P in keysOf T]: string}
+function test7<T extends string, P extends Readonly<{ [key in T]?: any }>>(props: T[]): P 
+function test7() {}
+test7(['a', 'b'])
 
 type Props = {}
 type RawBindings = {}
@@ -101,7 +140,7 @@ type Computed = {}
 type Methods = {}
 type Eemits = {}
 type EEemits = 'event1' | 'event2'
-export const TestListLoadMore3 = /*#__PURE__*/  defineComponent<Props, RawBindings,Data, Methods, Computed, ComponentOptionsMixin, ComponentOptionsMixin, Eemits, EEemits>({
+export const TestListLoadMoreN = /*#__PURE__*/  defineComponent<Props, RawBindings,Data, Methods, Computed, ComponentOptionsMixin, ComponentOptionsMixin, Eemits, EEemits>({
   setup() {
 
   },
