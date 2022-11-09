@@ -133,6 +133,44 @@ function test7<T extends string, P extends Readonly<{ [key in T]?: any }>>(props
 function test7() {}
 test7(['a', 'b'])
 
+// 通过制定范型参数的具体类型定义一个新的类型
+type Test8<T> = {
+  array: T[]
+}
+type Test9<T = string> = Test8<T>
+const test9: Test9 = {
+  array: ['']
+}
+
+// 通过继承创建一个新的interface
+interface TestBaseInterface<Props> {
+  data: (props: Props) => void
+}
+interface DerivativeInterface<Props> extends TestBaseInterface<Props> {}
+const derivativeInterface: DerivativeInterface<string[]> = {
+  data: (props) => {}
+}
+
+// 实现一个完整的props类型推断
+
+// overload 4: object format with object props declaration
+// see `ExtractPropTypes` in ./componentProps.ts
+export const TestListLoadMore5 = /*#__PURE__*/  defineComponent(
+  {
+    props: {
+      name: {
+        type: String,
+        required: true
+      } 
+    },
+    setup(props) {
+      return {
+        name: props.name
+      }
+    }
+  }
+)
+
 type Props = {}
 type RawBindings = {}
 type Data = {name: string}
