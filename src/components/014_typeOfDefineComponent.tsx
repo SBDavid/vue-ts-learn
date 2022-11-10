@@ -1,7 +1,7 @@
 // https://blog.csdn.net/qq_36157085/article/details/109498473
 import { keysOf } from 'element-plus/es/utils';
 import { ftruncate } from 'fs';
-import { defineComponent, reactive, onMounted, ref, type SetupContext, type ComponentOptionsMixin } from 'vue';
+import { defineComponent, reactive, onMounted, ref, type SetupContext, type ComponentOptionsMixin, type PropType } from 'vue';
 
 // 1. 范型方法，自动推断出范型变量的类型
 function myDefineComponent<TypeToInfer>(setup: () => TypeToInfer): TypeToInfer
@@ -152,6 +152,43 @@ const derivativeInterface: DerivativeInterface<string[]> = {
 }
 
 // 实现一个完整的props类型推断
+type MyComponentOptionsBase1<Props> = {
+  setup?: (props: Readonly<Props>) => void
+}
+type MyComponentOptionsWithArrayProps<
+  PropNames extends string = string,
+  Props = Readonly<{ [key in PropNames]?: any }>
+> = MyComponentOptionsBase1<Props> & {
+  props: PropNames[]
+}
+function myDefineComponent1<PropNames extends string> (
+  options: MyComponentOptionsWithArrayProps<PropNames>
+): void {}
+myDefineComponent1({
+  props: ['pa'],
+  setup(props) {
+    console.info(props.pa)
+  }
+})
+
+// 简化版本
+type MyComponentOptionsBase3<Props, PropNames> = {
+  setup?: (props: Readonly<Props>) => void
+  props: PropNames[]
+}
+type MyComponentOptionsWithArrayProps3<
+  PropNames extends string = string,
+  Props = Readonly<{ [key in PropNames]?: any }>
+> = MyComponentOptionsBase3<Props, PropNames>
+function myDefineComponent3<PropNames extends string> (
+  options: MyComponentOptionsWithArrayProps3<PropNames>
+): void {}
+myDefineComponent3({
+  props: ['pa'],
+  setup(props) {
+    console.info(props.pa)
+  }
+})
 
 // overload 4: object format with object props declaration
 // see `ExtractPropTypes` in ./componentProps.ts
@@ -170,6 +207,52 @@ export const TestListLoadMore5 = /*#__PURE__*/  defineComponent(
     }
   }
 )
+// 核心能力 ExtractPropTypes
+type RequiredKeys<T> = {
+  [K in keyof T]: T[K] extends
+    | { required: true }
+    | { default: any }
+    // don't mark Boolean props as undefined
+    | BooleanConstructor
+    | { type: BooleanConstructor }
+    ? T[K] extends { default: undefined | (() => undefined) }
+      ? never
+      : K
+    : never
+}[keyof T]
+type OptionalKeys<T> = Exclude<keyof T, RequiredKeys<T>>
+
+type TestBooleanConstructor = 0 extends BooleanConstructor ? 'res1' : 'res2'
+type test12 = {
+  name: {required: true}
+  age: {default: 12}
+  phone: BooleanConstructor
+  address: {type: String}
+}
+type RequiredKeysTest = RequiredKeys<test12>
+type OptionalKeysTest = OptionalKeys<test12>
+
+// 核心能力2 类型推断
+type InferPropType<T> = [T] extends [null]
+  ? any // null & true would fail to infer
+  : [T] extends [{ type: null | true }]
+  ? any // As TS issue https://github.com/Microsoft/TypeScript/issues/14829 // somehow `ObjectConstructor` when inferred from { (): T } becomes `any` // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
+  : [T] extends [ObjectConstructor | { type: ObjectConstructor }]
+  ? Record<string, any>
+  : [T] extends [BooleanConstructor | { type: BooleanConstructor }]
+  ? boolean
+  : [T] extends [DateConstructor | { type: DateConstructor }]
+  ? Date
+  : [T] extends [(infer U)[] | { type: (infer U)[] }]
+  ? U extends DateConstructor
+    ? Date | InferPropType<U>
+    : InferPropType<U>
+  : [T] extends [Prop<infer V, infer D>]
+  ? unknown extends V
+    ? IfAny<V, V, D>
+    : V
+  : T
+
 
 type Props = {}
 type RawBindings = {}
