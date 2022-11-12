@@ -1,7 +1,9 @@
 // https://blog.csdn.net/qq_36157085/article/details/109498473
-import { keysOf } from 'element-plus/es/utils';
-import { ftruncate } from 'fs';
 import { defineComponent, reactive, onMounted, ref, type SetupContext, type ComponentOptionsMixin, type PropType } from 'vue';
+
+// defineComponent 是如何推断类型的？
+
+// 例子1. 
 
 // 1. 范型方法，自动推断出范型变量的类型
 function myDefineComponent<TypeToInfer>(setup: () => TypeToInfer): TypeToInfer
@@ -233,25 +235,25 @@ type RequiredKeysTest = RequiredKeys<test12>
 type OptionalKeysTest = OptionalKeys<test12>
 
 // 核心能力2 类型推断
-type InferPropType<T> = [T] extends [null]
-  ? any // null & true would fail to infer
-  : [T] extends [{ type: null | true }]
-  ? any // As TS issue https://github.com/Microsoft/TypeScript/issues/14829 // somehow `ObjectConstructor` when inferred from { (): T } becomes `any` // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
-  : [T] extends [ObjectConstructor | { type: ObjectConstructor }]
-  ? Record<string, any>
-  : [T] extends [BooleanConstructor | { type: BooleanConstructor }]
-  ? boolean
-  : [T] extends [DateConstructor | { type: DateConstructor }]
-  ? Date
-  : [T] extends [(infer U)[] | { type: (infer U)[] }]
-  ? U extends DateConstructor
-    ? Date | InferPropType<U>
-    : InferPropType<U>
-  : [T] extends [Prop<infer V, infer D>]
-  ? unknown extends V
-    ? IfAny<V, V, D>
-    : V
-  : T
+// type InferPropType<T> = [T] extends [null]
+//   ? any // null & true would fail to infer
+//   : [T] extends [{ type: null | true }]
+//   ? any // As TS issue https://github.com/Microsoft/TypeScript/issues/14829 // somehow `ObjectConstructor` when inferred from { (): T } becomes `any` // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
+//   : [T] extends [ObjectConstructor | { type: ObjectConstructor }]
+//   ? Record<string, any>
+//   : [T] extends [BooleanConstructor | { type: BooleanConstructor }]
+//   ? boolean
+//   : [T] extends [DateConstructor | { type: DateConstructor }]
+//   ? Date
+//   : [T] extends [(infer U)[] | { type: (infer U)[] }]
+//   ? U extends DateConstructor
+//     ? Date | InferPropType<U>
+//     : InferPropType<U>
+//   : [T] extends [Prop<infer V, infer D>]
+//   ? unknown extends V
+//     ? IfAny<V, V, D>
+//     : V
+//   : T
 
 
 type Props = {}

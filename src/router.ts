@@ -8,6 +8,7 @@ import GenFormRef from './pages/genFormRef.vue';
 import Test_stack from './pages/013_test_stack.vue';
 import FormilyLogin from './pages/formilyLogin.vue';
 import TestCarManage from './pages/testCarManage.vue';
+import TestDefineComponent from './pages/001TestDefineComponent';
 
 const routes = [
   { path: '/app', component: App },
@@ -18,6 +19,7 @@ const routes = [
   { path: '/013_test_stack', component: Test_stack },
   { path: '/formilyLogin', component: FormilyLogin },
   { path: '/testCarManage', component: TestCarManage },
+  { path: '/001TestDefineComponent', component: TestDefineComponent },
 ]
 
 const router = createRouter({
