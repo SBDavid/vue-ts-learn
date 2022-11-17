@@ -35,23 +35,3 @@ genericFunction<string>((props) => {
   return [props]
 })
 
-// 对象的类型兼容
-// 强行指定props的类型
-export const DirectSetupFunction3 =  /*#__PURE__*/ defineComponent(
-  {
-    setup: (props: {name: string}, ctx) => {
-      return () => {
-        return (<div>{props.name}</div>)
-      }
-    }
-  }
-)
-defineComponent(
-  () => {
-    return () => {
-      return (<div>
-        <DirectSetupFunction3 />
-      </div>)
-    }
-  }
-)

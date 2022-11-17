@@ -109,6 +109,7 @@ const arrayPropsComponent = defineComponent(
   }
 )
 // 涉及 ts 语法：范型约束
+type TestExtend = 'name'|'age' extends string ? 1 : 2
 function testGenericConstraints<T extends string>(input: T): void
 function testGenericConstraints<T extends number>(input: T): void
 function testGenericConstraints() {}
@@ -134,18 +135,19 @@ const testLooseRequired2: TestLooseRequired2 = {
   name: 10
 }
 // 实现一个完整的props类型推断
-type ComponentOptionsBase2<Props> = {
-  setup?: (props: Readonly<Props>) => void
-}
+function defineComponent2<PropNames extends string> (
+  options: ComponentOptionsWithArrayProps<PropNames>
+): void {}
 type ComponentOptionsWithArrayProps<
   PropNames extends string = string,
   Props = Readonly<{ [key in PropNames]?: any }>
 > = ComponentOptionsBase2<Props> & {
   props: PropNames[]
 }
-function defineComponent2<PropNames extends string> (
-  options: ComponentOptionsWithArrayProps<PropNames>
-): void {}
+type ComponentOptionsBase2<Props> = {
+  setup?: (props: Readonly<Props>) => void
+}
+
 defineComponent2({
   props: ['pa'],
   setup(props) {
