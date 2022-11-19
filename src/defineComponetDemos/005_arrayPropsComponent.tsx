@@ -29,22 +29,23 @@ type ComponentOptionsBase2<Props> = {
 }
 
 defineComponent2({
-  props: ['pa'],
+  props: ['name', 'age'],
   setup(props) {
-    console.info(props.pa)
+    console.info(props.name)
   }
 })
 
 // 涉及 ts 语法：范型约束
-type TestExtend = 'name'|'age' extends string ? 1 : 2
-function testGenericConstraints<T extends string>(input: T): void
-function testGenericConstraints<T extends number>(input: T): void
-function testGenericConstraints() {}
-testGenericConstraints(10)
-testGenericConstraints('10')
+type TestExtend1 = 'name'|'age' extends string ? 1 : 2
+type TestExtend2 = ['name', 'age'] extends string ? 1 : 2
+// function testGenericConstraints<T extends string>(input: T): void
+// function testGenericConstraints<T extends number>(input: T): void
+// function testGenericConstraints() {}
+// testGenericConstraints(10)
+// testGenericConstraints('10')
 
 // ts 语法：索引签名
-type PropKeys<T> = T[] 
+type PropKeys<T extends string> = T[] 
 type InferType = ['name', 'age'] extends PropKeys<infer InferedType> ?  InferedType : never
 type PropsType = { [key in InferType]?: any }
 
