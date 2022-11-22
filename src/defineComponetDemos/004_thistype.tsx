@@ -14,7 +14,7 @@ export const noPropsComponent = defineComponent(
 interface HelperThisValue {
   logError: (error: string) => void;
 }
-let helperFunctions: { hello: Function } & ThisType<HelperThisValue> = {
+let helperObject: { hello: Function } & ThisType<HelperThisValue> = {
   hello: function() {
       this.logError("Error: Something went wrong!"); // 
       // 错误 TS2339: Property 'update' does not exist on HelperThisValue.
