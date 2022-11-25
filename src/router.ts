@@ -9,6 +9,7 @@ import Test_stack from './pages/013_test_stack.vue';
 import FormilyLogin from './pages/formilyLogin.vue';
 import TestCarManage from './pages/testCarManage.vue';
 import TestDefineComponent from './pages/001TestDefineComponent';
+import GetDeepChildRef from './pages/002_getDeepChildRef.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -20,6 +21,7 @@ const routes = [
   { path: '/formilyLogin', component: FormilyLogin },
   { path: '/testCarManage', component: TestCarManage },
   { path: '/001TestDefineComponent', component: TestDefineComponent },
+  { path: '/002_getDeepChildRef', component: GetDeepChildRef},
 ]
 
 const router = createRouter({
