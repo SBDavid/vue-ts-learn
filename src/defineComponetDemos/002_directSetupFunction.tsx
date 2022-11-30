@@ -27,10 +27,21 @@ export const directSetupFunction3 = /*#__PURE__*/ defineComponent(
 )
 
 // 涉及的 ts 语法：范型方法
-function genericFunction<T>(setup: (props: T) => T[]) {  }
-genericFunction((props: string) => {
+function genericFunction<T>(setup: (props?: T) => (T|undefined)[], arg?: T) { 
+  return setup(arg)
+}
+
+// 通过参数 arg 推断 T 类型
+genericFunction((props) => {
+  return [props]
+}, "arg")
+
+// 通过制定 props 的类型 推断 T 类型
+genericFunction((props?: string) => {
   return [props]
 })
+
+// 直接制定 T 的类型
 genericFunction<string>((props) => {
   return [props]
 })

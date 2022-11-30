@@ -3,12 +3,15 @@ import { defineComponent } from 'vue'
 // 例子 2. 没有 props 的组件
 export const noPropsComponent = defineComponent(
   {
+    // props 是由类型的，类型为空对象
     setup(props) {
       return () => {
         return (
-          <div></div>
-          // 错误，因为 props 的类型为 {}
-          // <div>{props.name}</div>
+          <template>
+            <div></div>
+            // 错误，因为 props 的类型为 {}
+            {/* <div>{props.name}</div> */}
+          </template>
         )
       }
     }
@@ -74,9 +77,9 @@ defineComponent1({ // 可以在这里指定props的类型 <{name: any}>
 
 // ts 语法：通过一个已存在的 type 定义新的 type
 type OldType<T> = {
-  setup: (props: T[]) => void
+  setup: (props: T) => void
 }
-type NewType<T = string> = OldType<T>
+type NewType<T = {}> = OldType<T>
 const newType: NewType = {
   setup(props) {}
 }
