@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 // 例子 2. 没有 props 的组件
 export const noPropsComponent = defineComponent(
   {
-    // props 是由类型的，类型为空对象
+    // props 是有类型的，类型为空对象
     setup(props) {
       return () => {
         return (
@@ -54,7 +54,7 @@ type ComponentOptionsWithoutProps<
 Props = {}
 > = ComponentOptionsBase1<Props> & {
   // 为什么要定义 props 为 undefined?
-  // 因为 defineComponent 有多个重载版本，可以通过 ts 类型兼容来推断当前的调用参数属于哪一种重载
+  // 因为 defineComponent 有 4 重载版本，可以通过 ts 类型兼容来推断当前的调用参数属于哪一种重载
   props?: undefined
 }
 
@@ -95,4 +95,4 @@ const people: People = {
 
 // 问题：为什么 props 中会出现 emit 中的属性？
 // EmitsToProps 到源码中查看
-// componentOptions :218
+// componentOptions :228

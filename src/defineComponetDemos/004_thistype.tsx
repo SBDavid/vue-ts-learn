@@ -17,8 +17,11 @@ interface HelperThisValue {
 let helperObject: { hello: Function } & ThisType<HelperThisValue> = {
   hello: function() {
       this.logError("Error: Something went wrong!"); // 
-      // 错误 TS2339: Property 'update' does not exist on HelperThisValue.
-      // this.update(); 
+  }
+}
+let helperObject1: { hello: Function } = {
+  hello: function(this: HelperThisValue) {
+      this.logError("Error: Something went wrong!"); // 
   }
 }
 

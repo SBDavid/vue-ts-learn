@@ -26,7 +26,7 @@ export const directSetupFunction3 = /*#__PURE__*/ defineComponent(
   }
 )
 
-// 涉及的 ts 语法：范型方法
+// 涉及的 ts 语法：范型方法，范型接口，范型类
 function genericFunction<T>(setup: (props?: T) => (T|undefined)[], arg?: T) { 
   return setup(arg)
 }
