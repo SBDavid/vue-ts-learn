@@ -26,10 +26,23 @@ export const directSetupFunction3 = /*#__PURE__*/ defineComponent(
   }
 )
 
+// 源码
+// export function defineComponent<Props, RawBindings = object>(
+//   setup: (
+//     props: Readonly<Props>,
+//     ctx: SetupContext
+//   ) => RawBindings | RenderFunction
+// ): DefineComponent<Props, RawBindings>
+
 // 涉及的 ts 语法：范型方法，范型接口，范型类
 function genericFunction<T>(setup: (props?: T) => (T|undefined)[], arg?: T) { 
   return setup(arg)
 }
+
+// 直接制定 T 的类型
+genericFunction<string>((props) => {
+  return [props]
+})
 
 // 通过参数 arg 推断 T 类型
 genericFunction((props) => {
@@ -41,8 +54,4 @@ genericFunction((props?: string) => {
   return [props]
 })
 
-// 直接制定 T 的类型
-genericFunction<string>((props) => {
-  return [props]
-})
-
+// 设置 T 的默认值 <T = string>

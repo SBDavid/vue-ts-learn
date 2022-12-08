@@ -25,7 +25,7 @@ export const NoPropsComponentError = defineComponent(
     setup(props) {
       return () => {
         return (
-          // 会产生错误，因为 props.onClick 是给IDE看的 {}
+          // 会产生错误，因为 props.onClick 是给 template 看的 {}
           <div onClick={props.onClick}></div>
         )
       }

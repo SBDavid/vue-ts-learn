@@ -19,6 +19,8 @@ let helperObject: { hello: Function } & ThisType<HelperThisValue> = {
       this.logError("Error: Something went wrong!"); // 
   }
 }
+
+// 另一种方法
 let helperObject1: { hello: Function } = {
   hello: function(this: HelperThisValue) {
       this.logError("Error: Something went wrong!"); // 
