@@ -10,6 +10,7 @@ import FormilyLogin from './pages/formilyLogin.vue';
 import TestCarManage from './pages/testCarManage.vue';
 import TestDefineComponent from './pages/001TestDefineComponent';
 import GetDeepChildRef from './pages/002_getDeepChildRef.vue'
+import GridDemo from './pages/003_grid.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -22,6 +23,7 @@ const routes = [
   { path: '/testCarManage', component: TestCarManage },
   { path: '/001TestDefineComponent', component: TestDefineComponent },
   { path: '/002_getDeepChildRef', component: GetDeepChildRef},
+  { path: '/003_gridDemo', component: GridDemo},
 ]
 
 const router = createRouter({
