@@ -11,6 +11,7 @@ import TestCarManage from './pages/testCarManage.vue';
 import TestDefineComponent from './pages/001TestDefineComponent';
 import GetDeepChildRef from './pages/002_getDeepChildRef.vue'
 import GridDemo from './pages/003_grid.vue'
+import InheritAttrs from './pages/004_inheritAttrs.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -24,6 +25,7 @@ const routes = [
   { path: '/001TestDefineComponent', component: TestDefineComponent },
   { path: '/002_getDeepChildRef', component: GetDeepChildRef},
   { path: '/003_gridDemo', component: GridDemo},
+  { path: '/004_inheritAttrs', component: InheritAttrs},
 ]
 
 const router = createRouter({
