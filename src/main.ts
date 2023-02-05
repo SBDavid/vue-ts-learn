@@ -1,17 +1,24 @@
 import { createApp } from 'vue'
 import router from './router'
-import { createPinia } from 'pinia'
+// import { createPinia } from 'pinia'
 import App from './app.vue'
 
 import 'element-plus/dist/index.css'
 import ElementPlus from 'element-plus'
 
-const pinia = createPinia()
+import { createGlobalStore } from './globalState'
+import { createPinia } from './globalState/index1'
+
+// const pinia = createPinia()
+const myPinia = createPinia()
+const globalStore = createGlobalStore()
 const app = createApp(App)
 
 app.use(ElementPlus)
+app.use(myPinia)
 app.use(router)
-app.use(pinia)
+// app.use(pinia)
+app.use(globalStore)
 
 app.mount('#app')
 

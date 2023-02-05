@@ -12,6 +12,8 @@ import TestDefineComponent from './pages/001TestDefineComponent';
 import GetDeepChildRef from './pages/002_getDeepChildRef.vue'
 import GridDemo from './pages/003_grid.vue'
 import InheritAttrs from './pages/004_inheritAttrs.vue'
+import GlobalState from './pages/005_global_state.vue'
+import GlobalState1 from './pages/005_global_state1.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -26,6 +28,8 @@ const routes = [
   { path: '/002_getDeepChildRef', component: GetDeepChildRef},
   { path: '/003_gridDemo', component: GridDemo},
   { path: '/004_inheritAttrs', component: InheritAttrs},
+  { path: '/005_global_state', component: GlobalState},
+  { path: '/005_global_state1', component: GlobalState1},
 ]
 
 const router = createRouter({

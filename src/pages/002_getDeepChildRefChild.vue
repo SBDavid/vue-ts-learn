@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref, defineExpose } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const inputRef = ref<HTMLInputElement | null>(null);
 // 通过 defineExpose 导出ref
