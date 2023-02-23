@@ -216,6 +216,7 @@ function createSetupStore($id, setup, options, pinia, hot, isOptionsStore) {
     scope.stop()
     subscriptions = []
     actionSubscriptions = []
+    pinia._s.get($id).$loadState = 'disposed'
     pinia._s.delete($id)
   }
 
@@ -269,10 +270,11 @@ function createSetupStore($id, setup, options, pinia, hot, isOptionsStore) {
     }
   }
 
-  const partialStore = {
+  let partialStore = {
     _p: pinia,
     // _s: scope,
     $id,
+    $loadState: ref('created'),
     $onAction: addSubscription.bind(null, actionSubscriptions),
     $patch,
     $reset,
@@ -307,16 +309,34 @@ function createSetupStore($id, setup, options, pinia, hot, isOptionsStore) {
     $dispose,
   }
 
+  if (pinia._s.has($id)) {
+    const undefinedStore = pinia._s.get($id)
+    undefinedStore.$loadState = 'created'
+    undefinedStore._p = pinia
+    undefinedStore.$onAction = addSubscription.bind(null, actionSubscriptions)
+    undefinedStore.$patch = $patch
+    undefinedStore.$reset = $reset
+    undefinedStore.$subscribe = partialStore.$subscribe
+    undefinedStore.$dispose = $dispose
+
+    partialStore = undefinedStore
+  }
+
   const store = reactive(partialStore)
 
   // store the partial store now so the setup of stores can instantiate each other before they are finished without
   // creating infinite loops.
   pinia._s.set($id, store)
 
+  // 初始化成功回调
+  const onLoaded = () => {
+    pinia._s.get($id).$loadState = 'loaded'
+  }
+
   // TODO: idea create skipSerialize that marks properties as non serializable and they are skipped
   const setupStore = pinia._e.run(() => {
     scope = effectScope()
-    return scope.run(() => setup())
+    return scope.run(() => setup(onLoaded))
   })
 
   // overwrite existing actions to support $onAction
@@ -382,6 +402,17 @@ function createSetupStore($id, setup, options, pinia, hot, isOptionsStore) {
   return store
 }
 
+function createUndefinedStore($id, pinia) {
+  const undefinedStore = reactive({
+    $id,
+    $loadState: 'undefined',
+  })
+
+  pinia._s.set($id, undefinedStore)
+
+  return undefinedStore
+}
+
 export function defineStore(id, setup, setupOptions) {
 
   function useStore(pinia) {
@@ -400,7 +431,7 @@ export function defineStore(id, setup, setupOptions) {
 
     pinia = activePinia
 
-    if (!pinia._s.has(id)) {
+    if (!pinia._s.has(id) || pinia._s.get(id).$loadState === 'undefined') {
       createSetupStore(id, setup, setupOptions, pinia)
       if (__DEV__) {
         useStore._pinia = pinia
@@ -414,6 +445,31 @@ export function defineStore(id, setup, setupOptions) {
 
   useStore.$id = id
   return useStore
+}
+
+export function useStore(id) {
+  const currentInstance = getCurrentInstance()
+  const pinia = (currentInstance && inject(piniaSymbol, null))
+
+  if (__DEV__ && !activePinia) {
+    throw new Error(
+      `[🍍]: useStore(id) was called with no active Pinia. Did you forget to install pinia?\n` +
+        `\tconst pinia = createPinia()\n` +
+        `\tapp.use(pinia)\n` +
+        `This will fail in production.`
+    )
+  }
+
+  if (!pinia._s.has(id)) {
+    createUndefinedStore(id, pinia)
+    if (__DEV__) {
+      useStore._pinia = pinia
+    }
+  }
+
+  const store = pinia._s.get(id)
+
+  return store
 }
 
 // subscriptions
