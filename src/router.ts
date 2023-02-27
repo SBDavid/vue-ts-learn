@@ -15,6 +15,8 @@ import InheritAttrs from './pages/004_inheritAttrs.vue'
 import GlobalState from './pages/005_global_state.vue'
 import GlobalState1 from './pages/005_global_state1.vue'
 import SktContainer from './pages/006_skt_container_app.vue'
+import ExtendVueApi from './pages/007_extend_vue_api.vue'
+import DataService from './pages/008_data_service.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -32,6 +34,8 @@ const routes = [
   { path: '/005_global_state', component: GlobalState},
   { path: '/005_global_state1', component: GlobalState1},
   { path: '/006_skt_container', component: SktContainer},
+  { path: '/007_extend_vue_api', component: ExtendVueApi},
+  { path: '/008_data_service', component: DataService},
 ]
 
 const router = createRouter({
