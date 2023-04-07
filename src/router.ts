@@ -17,6 +17,7 @@ import GlobalState1 from './pages/005_global_state1.vue'
 import SktContainer from './pages/006_skt_container_app.vue'
 import ExtendVueApi from './pages/007_extend_vue_api.vue'
 import DataService from './pages/008_data_service.vue'
+import MultiVueInstances from './pages/009_multi_vue_instances.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -36,6 +37,7 @@ const routes = [
   { path: '/006_skt_container', component: SktContainer},
   { path: '/007_extend_vue_api', component: ExtendVueApi},
   { path: '/008_data_service', component: DataService},
+  { path: '/009_multi_vue_instances', component: MultiVueInstances},
 ]
 
 const router = createRouter({
