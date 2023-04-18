@@ -18,6 +18,7 @@ import SktContainer from './pages/006_skt_container_app.vue'
 import ExtendVueApi from './pages/007_extend_vue_api.vue'
 import DataService from './pages/008_data_service.vue'
 import MultiVueInstances from './pages/009_multi_vue_instances.vue'
+import HFuncUpdate from './pages/010_h_func_update'
 
 const routes = [
   { path: '/app', component: App },
@@ -38,6 +39,7 @@ const routes = [
   { path: '/007_extend_vue_api', component: ExtendVueApi},
   { path: '/008_data_service', component: DataService},
   { path: '/009_multi_vue_instances', component: MultiVueInstances},
+  { path: '/010_h_func_update', component: HFuncUpdate},
 ]
 
 const router = createRouter({
