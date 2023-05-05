@@ -17,6 +17,7 @@
     "ant-design-vue": "^3.2.13",
     "element-plus": "^2.2.19",
     "pinia": "^2.0.21",
+    "swiper": "^9.2.4",
     "vue": "^3.2.37",
     "vue-router": "4"
   },

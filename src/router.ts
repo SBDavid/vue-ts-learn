@@ -19,6 +19,7 @@ import ExtendVueApi from './pages/007_extend_vue_api.vue'
 import DataService from './pages/008_data_service.vue'
 import MultiVueInstances from './pages/009_multi_vue_instances.vue'
 import HFuncUpdate from './pages/010_h_func_update'
+import SlotOfList from './pages/011_slot_of_list.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -40,6 +41,7 @@ const routes = [
   { path: '/008_data_service', component: DataService},
   { path: '/009_multi_vue_instances', component: MultiVueInstances},
   { path: '/010_h_func_update', component: HFuncUpdate},
+  { path: '/011_slot_of_list', component: SlotOfList},
 ]
 
 const router = createRouter({
