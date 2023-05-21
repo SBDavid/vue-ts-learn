@@ -20,6 +20,8 @@ import DataService from './pages/008_data_service.vue'
 import MultiVueInstances from './pages/009_multi_vue_instances.vue'
 import HFuncUpdate from './pages/010_h_func_update'
 import SlotOfList from './pages/011_slot_of_list.vue'
+import HWithWatch from './pages/012_h_with_watch'
+import DataDispatchRecursive from './pages/012_data_dispatch_recursive'
 
 const routes = [
   { path: '/app', component: App },
@@ -42,6 +44,8 @@ const routes = [
   { path: '/009_multi_vue_instances', component: MultiVueInstances},
   { path: '/010_h_func_update', component: HFuncUpdate},
   { path: '/011_slot_of_list', component: SlotOfList},
+  { path: '/012_h_with_watch', component: HWithWatch},
+  { path: '/012_data_dispatch_recursive', component: DataDispatchRecursive},
 ]
 
 const router = createRouter({
