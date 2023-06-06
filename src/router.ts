@@ -22,6 +22,7 @@ import HFuncUpdate from './pages/010_h_func_update'
 import SlotOfList from './pages/011_slot_of_list.vue'
 import HWithWatch from './pages/012_h_with_watch'
 import DataDispatchRecursive from './pages/012_data_dispatch_recursive'
+import Provider from './pages/014_provider'
 
 const routes = [
   { path: '/app', component: App },
@@ -46,6 +47,7 @@ const routes = [
   { path: '/011_slot_of_list', component: SlotOfList},
   { path: '/012_h_with_watch', component: HWithWatch},
   { path: '/012_data_dispatch_recursive', component: DataDispatchRecursive},
+  { path: '/014_provider', component: Provider},
 ]
 
 const router = createRouter({
