@@ -26,7 +26,11 @@ const Leaf = defineComponent({
 
   mounted() {
     console.info('mounted', useProvider().value)
-  }
+    setTimeout(() => {
+      throw Error("setTimeout error")
+    })
+    throw Error("mounted error")
+  },
 })
 
 
@@ -39,6 +43,11 @@ const Container = defineComponent({
 
   mounted() {
     console.info('mounted')
+  },
+
+  errorCaptured(err) {
+    console.info('errorCaptured', err)
+    return false
   }
 })
 
