@@ -25,6 +25,8 @@ import DataDispatchRecursive from './pages/012_data_dispatch_recursive'
 import Provider from './pages/014_provider'
 import Cssvar from './pages/015_css_var.vue'
 import ShareIdProvider from './pages/016_share_id_provider.vue'
+import Iframe from './pages/017_iframe.vue'
+import IframeChild from './pages/017_iframe_child.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -52,6 +54,8 @@ const routes = [
   { path: '/014_provider', component: Provider},
   { path: '/015_css_var', component: Cssvar},
   { path: '/016_share_id_provider', component: ShareIdProvider},
+  { path: '/017_iframe', component: Iframe},
+  { path: '/017_iframe_child', component: IframeChild},
 ]
 
 const router = createRouter({
