@@ -27,6 +27,7 @@ import Cssvar from './pages/015_css_var.vue'
 import ShareIdProvider from './pages/016_share_id_provider.vue'
 import Iframe from './pages/017_iframe.vue'
 import IframeChild from './pages/017_iframe_child.vue'
+import Swiper from './pages/018_swiper.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -56,6 +57,7 @@ const routes = [
   { path: '/016_share_id_provider', component: ShareIdProvider},
   { path: '/017_iframe', component: Iframe},
   { path: '/017_iframe_child', component: IframeChild},
+  { path: '/018_swiper', component: Swiper},
 ]
 
 const router = createRouter({
