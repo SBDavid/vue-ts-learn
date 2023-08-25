@@ -28,6 +28,7 @@ import ShareIdProvider from './pages/016_share_id_provider.vue'
 import Iframe from './pages/017_iframe.vue'
 import IframeChild from './pages/017_iframe_child.vue'
 import Swiper from './pages/018_swiper.vue'
+import MultiPage from './pages/019_multi_page'
 
 const routes = [
   { path: '/app', component: App },
@@ -58,6 +59,7 @@ const routes = [
   { path: '/017_iframe', component: Iframe},
   { path: '/017_iframe_child', component: IframeChild},
   { path: '/018_swiper', component: Swiper},
+  { path: '/019_multi_page', component: MultiPage},
 ]
 
 const router = createRouter({
