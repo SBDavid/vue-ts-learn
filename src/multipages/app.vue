@@ -1,26 +1,49 @@
 <template>
-  <KeepAlive>
-    <router-view v-slot="{ Component }">
-      <transition>
-        <KeepAlive>
-          <component :is="Component" />
-        </KeepAlive>
-      </transition>
-    </router-view>
-  </KeepAlive>
+  <router-view v-slot="{ Component }">
+    <transition>
+      <KeepAlive>
+        <component :is="Component" />
+      </KeepAlive>
+    </transition>
+  </router-view>
+  <div>
+    <div v-for="index of Array.from(Array(globalComponentAmount).keys())">
+      <slot :name="'globalComponent'+(index)"></slot>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
-import { Transition } from 'vue'
+<script lang="ts">
+import { Transition, defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
+
+export default defineComponent({
+  props: {
+    globalComponentAmount: {
+      type: Number
+    }
+  },
+  setup: () => {
+
+  },
+  components: {
+    Transition
+  }
+})
 </script>
 
 <style>
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+
 .v-enter-active {
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
 }
 .v-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
 }
 
 .v-enter-from,

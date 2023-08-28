@@ -3,6 +3,8 @@ import { h, defineComponent } from 'vue'
 import { createRouter, createWebHashHistory, type Router } from 'vue-router'
 
 import FullScreen from './fullscrean.vue'
+import Swiper from './swiper.vue'
+import Audio from './Audio.vue'
 
 export class AppRrender {
   router?: Router
@@ -21,11 +23,26 @@ export class AppRrender {
   }
 
   // 传入 floor
-  getFullScreenRoute(name: string) {
+  getFullScreenRoute(name: string, color: string) {
     return defineComponent({
       setup: () => {
         return () => {
-          return h(FullScreen, { name, push: this.push, goBack: this.goBack })
+          return h(FullScreen, { name, push: this.push, goBack: this.goBack, color })
+        }
+      }
+    })
+  }
+
+  getSwiper() {
+    return defineComponent({
+      setup: () => {
+        return () => {
+          return h(Swiper, {
+            slideComponentAmount: 2
+          }, {
+            'slider0': () => h(FullScreen, { name: 'slider0', push: this.push, goBack: this.goBack, color: 'red' }),
+            'slider1': () => h(FullScreen, { name: 'slider1', push: this.push, goBack: this.goBack, color: 'blue' })
+          })
         }
       }
     })
@@ -33,8 +50,9 @@ export class AppRrender {
 
   getRouter() {
     const routes = [
-      { path: '/', component: this.getFullScreenRoute('first'), alias: '/item0'},
-      { path: '/item1', component: this.getFullScreenRoute('second')}
+      { path: '/', component: this.getFullScreenRoute('first', 'aquamarine'), alias: '/item0'},
+      { path: '/item1', component: this.getFullScreenRoute('second', '#2196f3')},
+      { path: '/item2', component: this.getSwiper()},
     ]
 
     const router = createRouter({
@@ -48,6 +66,10 @@ export class AppRrender {
   }
 
   renderApp() {
-    return h(App)
+    return h(App, {
+      globalComponentAmount: 1
+    }, {
+      'globalComponent0': () => h(Audio, { push: this.push, goBack: this.goBack })
+    })
   }
 }

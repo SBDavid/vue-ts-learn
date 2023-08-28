@@ -1,7 +1,9 @@
 <template>
-  <div class="fs">
+  <div class="fs" :style="{ backgroundColor: color}">
     <h2>FullScreen: {{ name }} , {{ count }}</h2>
-    <div @click="change">跳转到第二页</div>
+    <div @click="push && push(0)">跳转到第一页</div>
+    <div @click="push && push(1)">跳转到第二页</div>
+    <div @click="push && push(2)">跳转到第三页</div>
     <div @click="goBack">goBack</div>
   </div>
 </template>
@@ -13,7 +15,8 @@ export default defineComponent({
   props: {
     name: String,
     push: Function,
-    goBack: Function
+    goBack: Function,
+    color: String
   },
   setup: (props) => {
     const count = ref(0)
@@ -45,5 +48,6 @@ export default defineComponent({
   position: fixed;
   height: 100vh;
   width: 100vw;
+  z-index: 0;
 }
 </style>
