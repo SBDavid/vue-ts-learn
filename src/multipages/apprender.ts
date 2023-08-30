@@ -2,6 +2,7 @@ import App from './app.vue'
 import { h, defineComponent, type DefineComponent } from 'vue'
 import { createRouter, createWebHashHistory, type Router } from 'vue-router'
 
+import SubPageContainer from './SubPageContianer.vue'
 import FullScreen from './fullscrean.vue'
 import Swiper from './swiper.vue'
 import Audio from './Audio.vue'
@@ -31,7 +32,12 @@ export class AppRrender {
     return defineComponent({
       setup: () => {
         return () => {
-          return h(comp, { name, pushIndex: this.pushIndex, pushName: this.pushName, goBack: this.goBack, color })
+          return h(SubPageContainer, {
+            name,
+            isInSwiper: false
+          } , {
+            default: () => h(comp, { name, pushIndex: this.pushIndex, pushName: this.pushName, goBack: this.goBack, color })
+          })
         }
       }
     })
@@ -44,13 +50,19 @@ export class AppRrender {
 
           const sliders: { [key: string]: Function } = {}
           pageList.forEach((page, index) => {
-            sliders[`slider${index}`] = () => h(
-              page.componentsTree.comp, { 
-                name: page.subPageconfig.name, 
-                pushIndex: this.pushIndex,
-                pushName: this.pushName, 
-                goBack: this.goBack, 
-                color: page.componentsTree.color })
+            sliders[`slider${index}`] = () => h(SubPageContainer, {
+              name: page.subPageconfig.name,
+              isInSwiper: true,
+              swiperIndex: index
+            } , {
+              default: () => h(
+                page.componentsTree.comp, { 
+                  name: page.subPageconfig.name, 
+                  pushIndex: this.pushIndex,
+                  pushName: this.pushName, 
+                  goBack: this.goBack, 
+                  color: page.componentsTree.color })
+            })
           })
 
           return h(Swiper, {

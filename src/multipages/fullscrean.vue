@@ -30,12 +30,8 @@ export default defineComponent({
 
     setInterval(() => {count.value++}, 1000)
 
-    onDeactivated(() => {
-      console.info('FullScreen onDeactivated')
-    })
-
-    const swiperSlide = useSwiperSlide()
-    console.info('swiperSlide', swiperSlide)
+    // const swiperSlide = useSwiperSlide()
+    // console.info('swiperSlide', swiperSlide)
 
 
     return {

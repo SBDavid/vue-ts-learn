@@ -1,5 +1,5 @@
 <template>
-  <swiper class="fs" :direction="direction" :virtual="true" :modules="[Virtual]">
+  <swiper class="fs" :direction="direction" :virtual="false" :modules="[Virtual]">
     <SwiperSlide 
       v-for="index of Array.from(Array(slideComponentAmount).keys())"
       :key="index"
@@ -21,7 +21,7 @@ export default defineComponent({
       type: Number
     },
     direction: {
-      type: Object as PropType<'horizontal'|'vertical'>
+      type: String as PropType<'horizontal'|'vertical'>
     }
   },
   setup: () => {
