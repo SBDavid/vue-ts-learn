@@ -66,7 +66,7 @@ export class AppRrender {
           })
 
           return h(Swiper, {
-            slideComponentAmount: 2,
+            slideComponentAmount: pageList.length,
             direction: swiperDirection as any
           }, sliders)
         }
@@ -150,6 +150,15 @@ export class AppRrender {
               componentsTree: {
                 comp: FullScreen,
                 color: 'blue'
+              }
+            },
+            {
+              subPageconfig: {
+                name: 'swiper2'
+              },
+              componentsTree: {
+                comp: FullScreen,
+                color: 'gray'
               }
             }
           ]

@@ -1,5 +1,11 @@
 <template>
-  <swiper class="fs" :direction="direction" :virtual="false" :modules="[Virtual]">
+  <swiper class="fs" 
+  :direction="direction" 
+  :virtual="false" 
+  :modules="[Virtual, Controller]" 
+  :effect="effect"
+  @swiper="setControlledSwiper" 
+  @afterInit="setSwiper">
     <SwiperSlide 
       v-for="index of Array.from(Array(slideComponentAmount).keys())"
       :key="index"
@@ -10,8 +16,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
-import { Virtual } from 'swiper'
+import { defineComponent, type PropType, ref, type Ref } from 'vue'
+import { Virtual, Controller, type Swiper as SwiperType } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
@@ -25,8 +31,30 @@ export default defineComponent({
     }
   },
   setup: () => {
+    const controlledSwiper: Ref<SwiperType|undefined> = ref();
+    const setControlledSwiper = (swiper: SwiperType) => {
+      controlledSwiper.value = swiper;
+    };
+    const effect = ref('slide')
+
+    const setSwiper = (swiper: SwiperType) => {
+      // swiper.allowSlideNext = true
+      // swiper.allowSlidePrev = true
+      swiper.allowTouchMove = true
+
+
+      setTimeout(() => {
+        // effect.value = 'slide'
+        swiper.slideTo(2, 0)
+      }, 2000);
+    }
+
     return {
-      Virtual
+      Virtual,
+      Controller,
+      effect,
+      setSwiper,
+      setControlledSwiper,
     }
   },
   components: {
