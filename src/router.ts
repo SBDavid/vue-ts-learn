@@ -30,6 +30,7 @@ import IframeChild from './pages/017_iframe_child.vue'
 import Swiper from './pages/018_swiper.vue'
 import MultiPage from './pages/019_multi_page'
 import Reactive from './pages/020_reactive.vue'
+import TravelVueTree from './pages/021_travel_vue_tree.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -62,6 +63,7 @@ const routes = [
   { path: '/018_swiper', component: Swiper},
   { path: '/019_multi_page', component: MultiPage},
   { path: '/020_reactive', component: Reactive},
+  { path: '/021_travel_vue_tree', component: TravelVueTree},
 ]
 
 const router = createRouter({
