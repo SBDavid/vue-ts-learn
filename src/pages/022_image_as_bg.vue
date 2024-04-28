@@ -5,7 +5,9 @@
       <div>test slot</div>
     </div> -->
     <img src="https://picsum.photos/200/300" />
-    <div class="cld">c3</div>
+    <div class="cld">
+      <div style="height: 1000px; background-color: aqua; opacity: 0.4;">test slot</div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -25,6 +27,7 @@ export default defineComponent({
     width: 100%;
     background-color: beige;
     position: relative;
+    overflow: hidden;
   }
 
   img {
