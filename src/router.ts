@@ -32,6 +32,7 @@ import MultiPage from './pages/019_multi_page'
 import Reactive from './pages/020_reactive.vue'
 import TravelVueTree from './pages/021_travel_vue_tree.vue'
 import ImageAsBg from './pages/022_image_as_bg.vue'
+import LearnFunction from './pages/023_function.vue'
 
 const routes = [
   { path: '/app', component: App },
@@ -66,6 +67,7 @@ const routes = [
   { path: '/020_reactive', component: Reactive},
   { path: '/021_travel_vue_tree', component: TravelVueTree},
   { path: '/022_image_as_bg', component: ImageAsBg},
+  { path: '/023_function', component: LearnFunction},
 ]
 
 const router = createRouter({
